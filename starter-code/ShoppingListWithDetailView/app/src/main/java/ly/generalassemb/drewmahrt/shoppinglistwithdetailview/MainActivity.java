@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import ly.generalassemb.drewmahrt.shoppinglistwithdetailview.setup.DBAssetHelper;
 
@@ -40,7 +41,18 @@ public class MainActivity extends AppCompatActivity {
         mCursorAdapter = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_1,cursor,new String[]{ShoppingSQLiteOpenHelper.COL_ITEM_NAME},new int[]{android.R.id.text1},0);
         mShoppingListView.setAdapter(mCursorAdapter);
 
+        mShoppingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                intent.putExtra("id",i);
+                startActivity(intent);
+            }
+        });
+
         handleIntent(getIntent());
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
